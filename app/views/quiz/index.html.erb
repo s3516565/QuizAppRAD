@@ -7,8 +7,18 @@
   <input type="checkbox" id="Networking" name="Networking" value="Networking">
   <label for="Programming">Programming</label><br>
   <input type="checkbox" id="Docker" name="Docker" value="Docker">
-  <label for="Docker">Docker</label><br>
+  <label for="Docker">Docker</label><br><br>
 
+
+  <label>Please choose the difficulty for the quiz:</label><br>
+  <input type="radio" id="easy" name="difficulty" value="Easy">
+  <label for="easy">Easy</label><br>
+  <input type="radio" id="medium" name="difficulty" value="Medium">
+  <label for="medium">Medium</label><br>
+  <input type="radio" id="hard" name="difficulty" value="Hard">
+  <label for="hard">Hard</label>
+
+  <br><br>
   <label for="question_count">Number of questions for the quiz:</label>
   <input type="text" onchange="validateField()" id="question_count" name="question_count"><br><br>
   <input name="commit" type="submit" value="Start Quiz" />
