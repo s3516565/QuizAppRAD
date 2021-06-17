@@ -1,11 +1,17 @@
-window.validateForm = () ->
-  return validateField()
-
-window.validateField = () ->
+window.validateForm = (e) ->
   questionCount = $("#question_count").val()
-  console.log(questionCount)
+  console.log(questionCount)  
+  console.log(parseInt(questionCount))
+  if parseInt(questionCount)>=4 && parseInt(questionCount)<=8    
+    return true
+  else
+    console.log('false')
+    e.preventDefault();
+    return false
 
-  return true
+$(document).on('ajax:beforeSend', 'form#index-form', (e) -> 
+  validateForm(e)
+)
 
 
 window.validateAnswer = (e) ->

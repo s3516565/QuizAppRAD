@@ -86,6 +86,7 @@ class AttemptController < ApplicationController
 
     session[:attempt_ids] ||= []
     session[:attempt_ids] << @attempt.id    
+    session[:user_answers] = {}
     redirect_to attempt_url(id: @attempt.id)
   end
 
@@ -121,6 +122,11 @@ class AttemptController < ApplicationController
       end
       @is_multiple_answer = count_answer>1
     end
+
+    session[:user_answers] ||= {}
+    @prev_user_answer = session[:user_answers][@attempt.current_question_index.to_s] || [false, false, false, false, false, false]
+    puts 'hihi'
+    puts session[:user_answers]
   end
 
   def update
@@ -159,11 +165,26 @@ class AttemptController < ApplicationController
       user_answer = [answer == 'answer_a', answer =='answer_b', answer =='answer_c', answer =='answer_d', answer =='answer_e', answer =='answer_f']
     end    
     
-    if user_answer == expected_answer
+    session[:user_answers] ||= {}
+
+    @prev_user_answer = session[:user_answers][@attempt.current_question_index.to_s] || [false, false, false, false, false, false]
+    puts 'hihi'
+    puts session[:user_answers]
+    if user_answer == expected_answer && @prev_user_answer != expected_answer
       @attempt.result = @attempt.result + 1
+    elsif user_answer != expected_answer && @prev_user_answer == expected_answer
+      @attempt.result = @attempt.result - 1
     end
-    
-    @attempt.current_question_index = @attempt.current_question_index + 1    
+        
+    session[:user_answers][@attempt.current_question_index.to_s] = user_answer
+    puts 'haha'
+    puts session[:user_answers]
+    if params[:commit] == 'Next' || params[:commit] == 'Submit'
+      @attempt.current_question_index = @attempt.current_question_index + 1    
+    else
+      @attempt.current_question_index = @attempt.current_question_index - 1    
+    end
+
     @attempt.save
 
     redirect_to attempt_url(id: @attempt.id)

@@ -1,10 +1,10 @@
-<%= form_tag('', options={onsubmit: "validateForm()"}) do |form| %>
+<%= form_tag('', options={id:"index-form", remote: true}) do |form| %>
   <label>Please choose the caregories for the quiz:</label><br>
   <input type="checkbox" id="Linux" name="Linux" value="Linux">
   <label for="Linux"> Linux </label><br>
   <input type="checkbox" id="DevOps" name="DevOps" value="DevOps">
   <label for="DevOps">DevOps</label><br>
-  <input type="checkbox" id="Networking" name="Networking" value="Networking">
+  <input type="checkbox" id="Programming" name="Programming" value="Programming">
   <label for="Programming">Programming</label><br>
   <input type="checkbox" id="Docker" name="Docker" value="Docker">
   <label for="Docker">Docker</label><br><br>
@@ -20,6 +20,6 @@
 
   <br><br>
   <label for="question_count">Number of questions for the quiz:</label>
-  <input type="text" onchange="validateField()" id="question_count" name="question_count"><br><br>
+  <input type="text" id="question_count" name="question_count"><br><br>
   <input name="commit" type="submit" value="Start Quiz" />
 <% end %>

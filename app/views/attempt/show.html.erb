@@ -13,78 +13,97 @@
 
 <% elsif !@is_multiple_answer %>
   <%= form_tag('/attempt/', options={id: 'answer-form', method: :post, remote: true}) do |form| %>
-  <%= hidden_field_tag :id, @attempt.id %>
+    <%= hidden_field_tag :id, @attempt.id %>
 
-  <h2> <%= @questions[@attempt.current_question_index]['question']%> </h2>
+    <h2> <%= @questions[@attempt.current_question_index]['question']%> </h2>
 
-  <% if @questions[@attempt.current_question_index]['answers']['answer_a'].present? %>
-        <input type="radio" id="answer_a" name="answers" value="answer_a">
-        <label for="answer_a"><%= @questions[@attempt.current_question_index]['answers']['answer_a']%></label><br>
-  <% end %>
+    <% if @questions[@attempt.current_question_index]['answers']['answer_a'].present? %>
+          <input type="radio" id="answer_a" name="answers" value="answer_a" <%=if @prev_user_answer[0] then 'checked' end%> >
+          <label for="answer_a"><%= @questions[@attempt.current_question_index]['answers']['answer_a']%></label><br>
+    <% end %>
 
-  <% if @questions[@attempt.current_question_index]['answers']['answer_b'].present? %>
-        <input type="radio" id="answer_b" name="answers" value="answer_b">
-        <label for="answer_b"><%= @questions[@attempt.current_question_index]['answers']['answer_b']%></label><br>
-  <% end %>
+    <% if @questions[@attempt.current_question_index]['answers']['answer_b'].present? %>
+          <input type="radio" id="answer_b" name="answers" value="answer_b" <%=if @prev_user_answer[1] then 'checked' end%> >
+          <label for="answer_b"><%= @questions[@attempt.current_question_index]['answers']['answer_b']%></label><br>
+    <% end %>
 
-  <% if @questions[@attempt.current_question_index]['answers']['answer_c'].present? %>
-        <input type="radio" id="answer_c" name="answers" value="answer_c">
-        <label for="answer_c"><%= @questions[@attempt.current_question_index]['answers']['answer_c']%></label><br>
-  <% end %>
+    <% if @questions[@attempt.current_question_index]['answers']['answer_c'].present? %>
+          <input type="radio" id="answer_c" name="answers" value="answer_c" <%=if @prev_user_answer[2] then 'checked' end%> >
+          <label for="answer_c"><%= @questions[@attempt.current_question_index]['answers']['answer_c']%></label><br>
+    <% end %>
 
-  <% if @questions[@attempt.current_question_index]['answers']['answer_d'].present? %>
-        <input type="radio" id="answer_d" name="answers" value="answer_d">
-        <label for="answer_d"><%= @questions[@attempt.current_question_index]['answers']['answer_d']%></label><br>
-  <% end %>
+    <% if @questions[@attempt.current_question_index]['answers']['answer_d'].present? %>
+          <input type="radio" id="answer_d" name="answers" value="answer_d" <%=if @prev_user_answer[3] then 'checked' end%> >
+          <label for="answer_d"><%= @questions[@attempt.current_question_index]['answers']['answer_d']%></label><br>
+    <% end %>
 
-  <% if @questions[@attempt.current_question_index]['answers']['answer_e'].present? %>
-        <input type="radio" id="answer_e" name="answers" value="answer_e">
-        <label for="answer_e"><%= @questions[@attempt.current_question_index]['answers']['answer_e']%></label><br>
-  <% end %>
+    <% if @questions[@attempt.current_question_index]['answers']['answer_e'].present? %>
+          <input type="radio" id="answer_e" name="answers" value="answer_e" <%=if @prev_user_answer[4] then 'checked' end%> >
+          <label for="answer_e"><%= @questions[@attempt.current_question_index]['answers']['answer_e']%></label><br>
+    <% end %>
 
-  <% if @questions[@attempt.current_question_index]['answers']['answer_f'].present? %>
-        <input type="radio" id="answer_e" name="answers" value="answer_f">
-        <label for="answer_f"><%= @questions[@attempt.current_question_index]['answers']['answer_f']%></label><br>
-  <% end %>
+    <% if @questions[@attempt.current_question_index]['answers']['answer_f'].present? %>
+          <input type="radio" id="answer_e" name="answers" value="answer_f" <%=if @prev_user_answer[5] then 'checked' end%> >
+          <label for="answer_f"><%= @questions[@attempt.current_question_index]['answers']['answer_f']%></label><br>
+    <% end %>
 
-  <input name="commit" type="submit" value="Submit" />
+    
+    <% if @attempt.current_question_index > 0%>
+      <input name="commit" type="submit" value="Previous" />
+    <% end %>        
+
+
+    <% if @attempt.current_question_index < @attempt.question_ids.length-1%>
+      <input name="commit" type="submit" value="Next" />
+    <%else%>
+      <input name="commit" type="submit" value="Submit" />
+    <% end %>  
   <% end %>
 <% else %>
-  <%= form_tag('/attempt/', options={id: 'answer-form', method: :post, remote: true}) do |form| %>
-  <%= hidden_field_tag :id, @attempt.id %>
+    <%= form_tag('/attempt/', options={id: 'answer-form', method: :post, remote: true}) do |form| %>
+      <%= hidden_field_tag :id, @attempt.id %>
 
-  <h2> <%= @questions[@attempt.current_question_index]['question']%> </h2>
+      <h2> <%= @questions[@attempt.current_question_index]['question']%> </h2>
 
-  <% if @questions[@attempt.current_question_index]['answers']['answer_a'].present? %>
-        <input type="checkbox" id="answer_a" name="answer_a" value="answer_a">
-        <label for="answer_a"><%= @questions[@attempt.current_question_index]['answers']['answer_a']%></label><br>
-  <% end %>
+      <% if @questions[@attempt.current_question_index]['answers']['answer_a'].present? %>
+            <input type="checkbox" id="answer_a" name="answer_a" value="answer_a" <%=if @prev_user_answer[0] then 'checked' end%> >
+            <label for="answer_a"><%= @questions[@attempt.current_question_index]['answers']['answer_a']%></label><br>
+      <% end %>
 
-  <% if @questions[@attempt.current_question_index]['answers']['answer_b'].present? %>
-        <input type="checkbox" id="answer_b" name="answer_b" value="answer_b">
-        <label for="answer_b"><%= @questions[@attempt.current_question_index]['answers']['answer_b']%></label><br>
-  <% end %>
+      <% if @questions[@attempt.current_question_index]['answers']['answer_b'].present? %>
+            <input type="checkbox" id="answer_b" name="answer_b" value="answer_b" <%=if @prev_user_answer[1] then 'checked' end%> >
+            <label for="answer_b"><%= @questions[@attempt.current_question_index]['answers']['answer_b']%></label><br>
+      <% end %>
 
-  <% if @questions[@attempt.current_question_index]['answers']['answer_c'].present? %>
-        <input type="checkbox" id="answer_c" name="answer_c" value="answer_c">
-        <label for="answer_c"><%= @questions[@attempt.current_question_index]['answers']['answer_c']%></label><br>
-  <% end %>
+      <% if @questions[@attempt.current_question_index]['answers']['answer_c'].present? %>
+            <input type="checkbox" id="answer_c" name="answer_c" value="answer_c" <%=if @prev_user_answer[2] then 'checked' end%> >
+            <label for="answer_c"><%= @questions[@attempt.current_question_index]['answers']['answer_c']%></label><br>
+      <% end %>
 
-  <% if @questions[@attempt.current_question_index]['answers']['answer_d'].present? %>
-        <input type="checkbox" id="answer_d" name="answer_d" value="answer_d">
-        <label for="answer_d"><%= @questions[@attempt.current_question_index]['answers']['answer_d']%></label><br>
-  <% end %>
+      <% if @questions[@attempt.current_question_index]['answers']['answer_d'].present? %>
+            <input type="checkbox" id="answer_d" name="answer_d" value="answer_d" <%=if @prev_user_answer[3] then 'checked' end%> >
+            <label for="answer_d"><%= @questions[@attempt.current_question_index]['answers']['answer_d']%></label><br>
+      <% end %>
 
-  <% if @questions[@attempt.current_question_index]['answers']['answer_e'].present? %>
-        <input type="checkbox" id="answer_e" name="answer_e" value="answer_e">
-        <label for="answer_e"><%= @questions[@attempt.current_question_index]['answers']['answer_e']%></label><br>
-  <% end %>
+      <% if @questions[@attempt.current_question_index]['answers']['answer_e'].present? %>
+            <input type="checkbox" id="answer_e" name="answer_e" value="answer_e" <%=if @prev_user_answer[4] then 'checked' end%> >
+            <label for="answer_e"><%= @questions[@attempt.current_question_index]['answers']['answer_e']%></label><br>
+      <% end %>
 
-  <% if @questions[@attempt.current_question_index]['answers']['answer_f'].present? %>
-        <input type="checkbox" id="answer_e" name="answer_f" value="answer_f">
-        <label for="answer_f"><%= @questions[@attempt.current_question_index]['answers']['answer_f']%></label><br>
-  <% end %>
+      <% if @questions[@attempt.current_question_index]['answers']['answer_f'].present? %>
+            <input type="checkbox" id="answer_e" name="answer_f" value="answer_f" <%=if @prev_user_answer[5] then 'checked' end%> >
+            <label for="answer_f"><%= @questions[@attempt.current_question_index]['answers']['answer_f']%></label><br>
+      <% end %>
+      
+      <% if @attempt.current_question_index > 0%>
+        <input name="commit" type="submit" value="Previous" />
+      <% end %>        
 
-  <input name="commit" type="submit" value="Submit" />
-  <% end %>      
+
+      <% if @attempt.current_question_index < @attempt.question_ids.length-1%>
+        <input name="commit" type="submit" value="Next" />
+      <%else%>
+        <input name="commit" type="submit" value="Submit" />
+      <% end %>        
+    <% end %>   
 <% end %>
