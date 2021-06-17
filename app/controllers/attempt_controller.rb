@@ -5,18 +5,21 @@ class AttemptController < ApplicationController
     
 
     difficulty = params[:difficulty]
+    topics = []
 
     begin 
         if params[:Linux]=="Linux"
           url = "https://quizapi.io/api/v1/questions?apiKey=ELfM6cBcbI1M87LAn8nv4uCoB90fGDyYY2hditsI&category=linux&difficulty=#{difficulty}&limit=10"
           response = RestClient.get(url)
-          questions1 = JSON.parse(response)         
+          questions1 = JSON.parse(response)      
+          topics << "Linux"   
         end
 
         if params[:DevOps]=="DevOps"
           url = "https://quizapi.io/api/v1/questions?apiKey=ELfM6cBcbI1M87LAn8nv4uCoB90fGDyYY2hditsI&category=devops&difficulty=#{difficulty}&limit=10"
           response = RestClient.get(url)
           questions2 = JSON.parse(response) 
+          topics << "DevOps"   
         end
 
 
@@ -24,12 +27,14 @@ class AttemptController < ApplicationController
           url = "https://quizapi.io/api/v1/questions?apiKey=ELfM6cBcbI1M87LAn8nv4uCoB90fGDyYY2hditsI&category=code&difficulty=#{difficulty}&limit=10"
           response = RestClient.get(url)
           questions3 = JSON.parse(response) 
+          topics << "Programming"  
         end
 
         if params[:Docker]=="Docker"
           url = "https://quizapi.io/api/v1/questions?apiKey=ELfM6cBcbI1M87LAn8nv4uCoB90fGDyYY2hditsI&category=docker&difficulty=#{difficulty}&limit=10"
           response = RestClient.get(url)
           questions4 = JSON.parse(response) 
+          topics << "Docker"  
         end
       
       questions_json = []
@@ -75,6 +80,8 @@ class AttemptController < ApplicationController
     @attempt = Attempt.new()
     @attempt.question_ids = question_ids
     @attempt.questions_json = questions_json
+    @attempt.difficulty = difficulty
+    @attempt.topics = topics
     @attempt.save!
 
     session[:attempt_ids] ||= []
@@ -160,5 +167,9 @@ class AttemptController < ApplicationController
     @attempt.save
 
     redirect_to attempt_url(id: @attempt.id)
+  end
+
+  def index
+    @attempts = Attempt.all.sort_by{|a| a.updated_at}.reverse!
   end
 end

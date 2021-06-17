@@ -3,4 +3,5 @@ Rails.application.routes.draw do
   post '/'  => 'attempt#create'
   get 'attempt/:id' => 'attempt#show', as: 'attempt'
   post 'attempt/' => 'attempt#update'
+  get '/history' => 'attempt#index'
 end

@@ -1,0 +1,7 @@
+<%@attempts.each do |attempt|%>
+  <h2> Date/Time: <%=attempt.updated_at%> </h2>
+  <p> Topic: <%=attempt.topics%> </p>
+  <p> Difficulty <%=attempt.difficulty%> </p>
+  <p> Questions: <%=attempt.question_ids%> </p>
+  <p> Result: <%=attempt.result%> out of  <%=attempt.question_ids.length%></p>
+<%end%>
