@@ -1,3 +1,6 @@
-Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+Rails.application.routes.draw do  
+  root             'quiz#index'
+  post '/'  => 'attempt#create'
+  get 'attempt/:id' => 'attempt#show', as: 'attempt'
+  post 'attempt/' => 'attempt#update'
 end
